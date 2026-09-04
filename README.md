@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/basebin/hello/main/.github/assets/thumbnail.png" alt="hello" width="100%">
+</p>
+
 # Hello
 
 [![Docker CI](https://github.com/bniladridas/hello/actions/workflows/docker-ci.yml/badge.svg)](https://github.com/bniladridas/hello/actions/workflows/docker-ci.yml)
