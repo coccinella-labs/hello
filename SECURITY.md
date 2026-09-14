@@ -2,7 +2,7 @@
 
 ## Reporting Vulnerabilities
 
-If you discover a security vulnerability, please report it responsibly by emailing 125604915+bniladridas@users.noreply.github.com instead of creating a public issue.
+If you discover a security vulnerability, please report it responsibly by emailing coccinella.labs@icloud.com instead of creating a public issue.
 
 ## Security Measures
 
