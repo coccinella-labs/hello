@@ -95,7 +95,7 @@ const BlogList = ({ posts, onEdit, onDelete }) => {
 - **Tailwind CSS**: Used for utility-first CSS approach, allowing rapid UI development with consistent design. Reduces CSS bundle size through purging unused styles.
 - **Lucide React**: Icons library for consistent, scalable SVG icons that match the design system.
 - **PropTypes**: Added for runtime type checking in development, improving code reliability.
-- **Create React App (react-scripts)**: Bootstrapped the project for quick setup with built-in tooling (webpack, Babel, ESLint).
+- **Create React App**: Bootstrapped with CRA. The eject scripts in `scripts/` are run directly through `node` (`scripts/build.js`, `scripts/test.js`, `scripts/start.js`); `react-scripts` is not a dependency. Tooling is webpack, Babel and ESLint.
 - **JavaScript Standard Style**: Enforces strict, consistent code style with no semicolons, single quotes, and automatic formatting. Promotes clean, readable code without configuration.
 
 ## Current State & Maintenance
@@ -111,7 +111,7 @@ As a code reviewer, I've assessed the codebase and confirmed the following:
 - **E2E Testing**: Cypress tests for UI features (dark mode, navigation, pages)
 - **Build**: Successful production build (133.05 kB JS, 4.09 kB CSS gzipped)
 - **CI/CD**: Docker-based CI pipeline with automated testing and building
-- **Security**: No critical vulnerabilities in production code
+- **Security**: `npm audit` reports 130 findings across the dependency tree: 4 critical, roughly 70 high, roughly 50 moderate and a handful of low. Almost all are in dev dependencies and tooling, not in the shipped bundle. Do not treat this list as fixed; re-run `npm audit` before acting on it.
 - **Code Organization**: Well-structured with logical folder separation (core/, config/, infra/, etc.)
 - **Dependencies**: Minimal and up-to-date where possible
 - **Documentation**: Comprehensive README with setup, deployment, and maintenance guides
@@ -122,7 +122,7 @@ As a code reviewer, I've assessed the codebase and confirmed the following:
 - Implement more comprehensive error handling for production
 
 ### Known Issues
-- **NPM Vulnerabilities**: 2 moderate severity vulnerabilities related to postcss and resolve-url-loader. These are in dev dependencies and don't affect production builds. Avoid `npm audit fix --force` as it may introduce breaking changes.
+- **NPM Vulnerabilities**: `npm audit` reports 130 findings, including 4 critical (protobufjs, proxy-addr, shell-quote, websocket-driver) and high-severity issues across the webpack/Jest/eslint tooling. postcss and resolve-url-loader are among the moderate set, not the whole of it. Avoid `npm audit fix --force` as it may introduce breaking changes.
 - **Deprecated Dependencies**: Some Babel plugins are deprecated but functional. Update when possible.
 - **Node.js Deprecation Warnings**: fs.F_OK and webpack dev server middleware warnings are harmless but indicate outdated tooling.
 
@@ -130,12 +130,12 @@ As a code reviewer, I've assessed the codebase and confirmed the following:
 - Regularly update dependencies: `npm update`
 - Monitor Firebase usage and costs
 - Test Firestore rules in emulator before production
-- Keep Node.js updated (currently supports v16+)
+- Keep Node.js updated. There is no `engines` field, so no floor is enforced; the suite was last run on Node 26.
 - Run `npm run lint:fix` to auto-format code per Standard JS
 
 ### Troubleshooting
 - **App won't start**: Run `rm -rf node_modules && npm install` to clear cache
-- **Build fails**: Ensure Node.js v16+, check .env file for Firebase config
+- **Build fails**: Check the Node version and the .env file for Firebase config
 - **Firebase connection issues**: Verify .env variables and Firestore rules
 - **Styling issues**: Run `npm run build` to ensure Tailwind purging works
 - **Emulator not connecting**: Ensure Java is installed and emulator is started before app
@@ -145,7 +145,7 @@ As a code reviewer, I've assessed the codebase and confirmed the following:
 ## Setup
 
 ### Prerequisites
-- Node.js (v16 or higher)
+- Node.js. No `engines` floor is set; tests were last run on Node 26.
 - npm or yarn
 - Firebase account
 
